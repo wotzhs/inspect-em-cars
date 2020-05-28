@@ -1,9 +1,9 @@
-var express = require("express");
-var path = require("path");
-var logger = require("morgan");
-var indexRouter = require("./routes/index");
+import express from "express";
+import path from "path";
+import logger from "morgan";
+import indexRouter from "./routes/index";
 
-var app = express();
+const app = express();
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -11,4 +11,4 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/", indexRouter);
 
-module.exports = app;
+export default app;
