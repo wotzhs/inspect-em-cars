@@ -1,9 +1,7 @@
-import express from "express";
-const router = express.Router();
+class indexRoutes {
+	static getLocations(call, callback) {
+		callback(null, {"locations": [{"name": "hello world"}]});
+	}
+}
 
-/* GET home page. */
-router.get("/", function(req, res, next) {
-	res.json("hello world");
-});
-
-export default router;
+export default indexRoutes;
