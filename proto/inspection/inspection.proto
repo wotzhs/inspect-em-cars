@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package inspection;
+
+service InspectionService {
+	rpc getAvailabilities(DateRange) returns (Availabilities) {};
+}
+
+message DateRange {
+	google.protobuf.Timestamp start = 1;
+	google.protobuf.Timestamp end = 2;
+}
+
+message Availability {
+	google.protobuf.Timestamp date = 1;
+	repeated int32 slots = 2;
+}
+
+message Availabilities {
+	repeated Availability availabilities = 1;
+}
