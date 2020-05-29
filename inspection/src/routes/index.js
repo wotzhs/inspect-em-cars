@@ -1,9 +1,21 @@
-import express from "express";
-const router = express.Router();
+class indexRoutes {
+	static getAvailabilities(call, callback) {
+		let now = Date.now();
+		callback(
+			null, 
+			{ 
+				"availabilities": [
+					{ 
+						"date": {
+							seconds: Math.floor(now/1000), 
+							nanos: (now%1000)*1000,
+						},
+						slots: [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
+					}
+				]
+			}
+		);
+	}
+}
 
-/* GET home page. */
-router.get("/", function(req, res, next) {
-	res.json("hello world");
-});
-
-export default router;
+export default indexRoutes;

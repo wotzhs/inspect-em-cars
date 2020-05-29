@@ -11,9 +11,11 @@
     "start": "NODE_ENV=production npm-run-all build prod"
   },
   "dependencies": {
+    "@grpc/proto-loader": "^0.5.4",
     "body-parser": "^1.19.0",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "grpc": "^1.24.2",
     "morgan": "~1.9.1"
   },
   "devDependencies": {

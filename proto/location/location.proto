@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package location;
+
+service LocationService {
+	rpc getLocations(google.protobuf.Empty) returns(Locations) {};
+};
+
+message Location {
+	string name = 1;
+}
+
+message Locations {
+	repeated Location locations = 1;
+}
