@@ -1,14 +1,19 @@
-import express from "express";
-import path from "path";
-import logger from "morgan";
-import indexRouter from "./routes/index";
+import grpc from "grpc";
+import { loadSync } from "@grpc/proto-loader";
+import commonGrpcConfig from "../../grpc-common-config";
+import routes from "./routes";
 
-const app = express();
+const packageDef = loadSync("location/location.proto", commonGrpcConfig);
+const { LocationService } = grpc.loadPackageDefinition(packageDef).location;
 
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+const server = new grpc.Server();
 
-app.use("/", indexRouter);
+server.addService(LocationService.service, {
+	getLocations: routes.getLocations,
+});
 
-export default app;
+const SERVER_IP = process.env.SERVER_IP || "0.0.0.0";
+const SERVER_PORT = process.env.SERVER_PORT || "50051";
+
+server.bind(`${SERVER_IP}:${SERVER_PORT}`, grpc.ServerCredentials.createInsecure());
+server.start();
