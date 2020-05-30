@@ -4,6 +4,19 @@ Exploration of an express api-gateway that fronts multiple gRPC services + nats 
 
 ## Getting Started
 
+### API Flow
+
+1. Make a GET request to `/locations` to retrieve a list of available locations
+2. Use the id from 1 above to make a GET request to `/locations/availabilities` with optional params of `start` and `end`. Full sample url: `/locations/availabilities?id=9574d7a5-2166-42a4-89b8-ebf9504d1aac&start=2020-05-30T00:00:00Z&end=2020-06-03T00:00:00Z`
+3. Make POST request to `/appointments` to create an appointment. Sample body request:
+    ```
+    {
+	    "inspection_centre_id": "9574d7a5-2166-42a4-89b8-ebf9504d1aac",
+	    "date": "2020-06-15T00:00:00Z",
+	    "timeslot": 2
+    }
+    ```
+
 ### Development
 
 This assumes you have `docker` and `docker-compose` installed.
