@@ -18,11 +18,29 @@ class Routes {
 	static async getLocationAvailabilities(call, callback) {
 		const res = await Service.getAvailabilitiesByLocation(call.request);
 		if (res instanceof Error) {
+			console.log(res);
 			let code = grpc.status.INTERNAL;
 			let details = "internal server error";
 
 			if (res.message == "maximum date range is 14 days") {
 				code = grpc.status.OUT_OF_RANGE;
+				details = res.message;
+			}
+
+			return callback({ code, details });
+		}
+
+		callback(null, { "availabilities": res });
+	}
+
+	static async updateLocationAvailabilities(call, callback) {
+		const res = await Service.updateAvailability(call.request);
+		if (res instanceof Error) {
+			let code = grpc.status.INTERNAL;
+			let details = "internal server error";
+
+			if (res.message == "selected slot is unavailable") {
+				code = grpc.status.INVALID_ARGUMENT;
 				details = res.message;
 			}
 

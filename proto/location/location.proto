@@ -8,6 +8,7 @@ package location;
 service LocationService {
 	rpc getLocations(google.protobuf.Empty) returns(Locations) {};
 	rpc getLocationAvailabilities(LocationDateRange) returns(Availabilities) {};
+	rpc updateLocationAvailabilities(AppointmentDetails) returns (Availabilities) {};
 };
 
 message Location {
@@ -32,4 +33,10 @@ message Availability {
 
 message Availabilities {
 	repeated Availability availabilities = 1;
+}
+
+message AppointmentDetails {
+	string inspection_centre_id = 1;
+	google.protobuf.Timestamp date = 2;
+	int32 slot = 3;	
 }
