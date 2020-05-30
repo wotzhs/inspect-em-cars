@@ -9,7 +9,7 @@ const { InspectionService } = grpc.loadPackageDefinition(packageDef).inspection;
 const server = new grpc.Server();
 
 server.addService(InspectionService.service, {
-	getAvailabilities: routes.getAvailabilities,
+	createAppointment: routes.createAppointment,
 });
 
 const SERVER_IP = process.env.SERVER_IP || "0.0.0.0";

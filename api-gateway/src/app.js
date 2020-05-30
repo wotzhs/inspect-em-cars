@@ -11,6 +11,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/locations", locationsRouter);
-app.use("/inspections", inspectionsRouter);
+app.use("/appointments", inspectionsRouter);
 
 export default app;
