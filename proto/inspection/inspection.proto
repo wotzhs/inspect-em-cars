@@ -5,19 +5,16 @@ import "google/protobuf/timestamp.proto";
 package inspection;
 
 service InspectionService {
-	rpc getAvailabilities(DateRange) returns (Availabilities) {};
+	rpc createAppointment(AppointmentDetails) returns (AppointmentId) {};
 }
 
-message DateRange {
-	google.protobuf.Timestamp start = 1;
-	google.protobuf.Timestamp end = 2;
+message AppointmentDetails {
+	string inspection_centre_id = 1;
+	string lead_id = 2;
+	google.protobuf.Timestamp date = 3;
+	int32 timeslot = 4;
 }
 
-message Availability {
-	google.protobuf.Timestamp date = 1;
-	repeated int32 slots = 2;
-}
-
-message Availabilities {
-	repeated Availability availabilities = 1;
+message AppointmentId {
+	string id = 1;
 }
