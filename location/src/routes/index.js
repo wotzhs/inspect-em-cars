@@ -12,7 +12,24 @@ class Routes {
 			});
 		}
 
-		callback(null, {"locations": res});
+		callback(null, { "locations": res });
+	}
+
+	static async getLocationAvailabilities(call, callback) {
+		const res = await Service.getAvailabilitiesByLocation(call.request);
+		if (res instanceof Error) {
+			let code = grpc.status.INTERNAL;
+			let details = "internal server error";
+
+			if (res.message == "maximum date range is 14 days") {
+				code = grpc.status.OUT_OF_RANGE;
+				details = res.message;
+			}
+
+			return callback({ code, details });
+		}
+
+		callback(null, { "availabilities": res });
 	}
 }
 
