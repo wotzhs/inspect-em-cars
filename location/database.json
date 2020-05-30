@@ -1,0 +1,3 @@
+{
+	"dev": { "ENV": "LOCATION_DB_URL" }
+}
