@@ -29,6 +29,14 @@
             "error",
             "always"
         ],
-        "no-trailing-spaces": "error"
+        "no-trailing-spaces": "error",
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "space-in-brackets": [
+            "error",
+            "always"
+        ]
     }
 }
