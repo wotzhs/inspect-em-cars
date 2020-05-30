@@ -17,3 +17,9 @@ services:
       - "5433:5432"
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
+
+  nats:
+    image: nats
+    ports:
+      - "4222:4222"
+      - "8222:8222"
