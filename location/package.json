@@ -12,11 +12,13 @@
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.5.4",
+    "date-fns": "^2.14.0",
     "db-migrate": "^0.11.11",
     "db-migrate-pg": "^1.2.2",
     "grpc": "^1.24.2",
     "morgan": "~1.9.1",
-    "pg": "^8.2.1"
+    "pg": "^8.2.1",
+    "pg-format": "^1.0.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
