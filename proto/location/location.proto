@@ -1,11 +1,13 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 
 package location;
 
 service LocationService {
 	rpc getLocations(google.protobuf.Empty) returns(Locations) {};
+	rpc getLocationAvailabilities(LocationDateRange) returns(Availabilities) {};
 };
 
 message Location {
@@ -15,4 +17,19 @@ message Location {
 
 message Locations {
 	repeated Location locations = 1;
+}
+
+message LocationDateRange {
+	string id = 1;
+	google.protobuf.Timestamp start = 2;
+	google.protobuf.Timestamp end = 3;
+}
+
+message Availability {
+	google.protobuf.Timestamp date = 1;
+	repeated int32 slots = 2;
+}
+
+message Availabilities {
+	repeated Availability availabilities = 1;
 }

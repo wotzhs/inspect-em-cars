@@ -10,6 +10,7 @@ const server = new grpc.Server();
 
 server.addService(LocationService.service, {
 	getLocations: Routes.getLocations,
+	getLocationAvailabilities: Routes.getLocationAvailabilities,
 });
 
 const SERVER_IP = process.env.SERVER_IP || "0.0.0.0";

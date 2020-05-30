@@ -1,21 +1,19 @@
-class indexRoutes {
-	static getAvailabilities(call, callback) {
-		let now = Date.now();
-		callback(
-			null, 
-			{ 
-				"availabilities": [
-					{ 
-						"date": {
-							seconds: Math.floor(now/1000), 
-							nanos: (now%1000)*1000,
-						},
-						slots: [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
-					}
-				]
-			}
-		);
+import grpc from "grpc";
+import Service from "../services";
+
+class Routes {
+	static async createAppointment(call, callback) {
+		const res = await Service.createAppointment(call.request);
+		if (res instanceof Error) {
+			console.log(res);
+			return callback({
+				code: grpc.status.INTERNAL,
+				details: "internal server error",
+			});
+		}
+
+		callback(null, res);
 	}
 }
 
-export default indexRoutes;
+export default Routes;

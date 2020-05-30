@@ -8,3 +8,12 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
+
+  inspection-db:
+    image: postgres
+    volumes:
+      - $PWD/inspection/data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust

@@ -1,17 +1,21 @@
 import express from "express";
+import HttpStatus from "http-status-codes";
 import inspectionService from "../clients/inspection";
+import { toProtoDate } from "../../../util/protoDate";
 
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-	inspectionService.getAvailabilities({}, (err, resp)=> {
-		let availabilities = resp.availabilities.map(availability => {
-			const { date, slots } = availability;
-			let datefmt = new Date(date.seconds*1000 + date.nanos/1000).toISOString();
-			return { date: datefmt, slots };
-		});
+router.post("/", (req, res, next) => {
+	const { date, ...others } = req.body;
+	let protoDate = toProtoDate(date);
+	inspectionService.createAppointment({ ...others, date: protoDate }, (err, resp)=> {
+		if (err) {
+			console.log(err);
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR);
+			return res.json({ error: HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR) });
+		}
 
-		res.json({ availabilities });
+		res.json(resp);
 	});
 });
 
