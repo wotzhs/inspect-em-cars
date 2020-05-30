@@ -98,6 +98,36 @@ class Service {
 			return e;
 		}
 	}
+
+	static async updateAvailability({ inspection_centre_id, date, slot }) {
+		try {
+			await pool.query("BEGIN");
+			const res = await pool.query(
+				`
+				UPDATE availabilities SET slots[$1] = slots[$1] -1
+				WHERE inspection_centre_id = $2 AND date = $3
+				RETURNING *;
+				`,
+				[ slot, inspection_centre_id, fromProtoDate(date).toISOString() ]
+			);
+
+			// postgres array is not zero-indexed but one-indexed
+			if (res.rows[0].slots[slot-1] < 0) {
+				throw Error("selected slot is unavailable");
+			}
+
+			res.rows = res.rows.map(row => {
+				const { date, ...others } = row;
+				return { ...others, date: toProtoDate(date) };
+			});
+
+			await pool.query("COMMIT");
+			return res.rows;
+		} catch(e) {
+			await pool.query("ROLLBACK");
+			return e;
+		}
+	}
 }
 
 export default Service;
