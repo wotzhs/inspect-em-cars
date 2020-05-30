@@ -1,6 +1,5 @@
 import differenceInDays from "date-fns/differenceInDays";
 import addDays from "date-fns/addDays";
-import isEqual from "date-fns/isEqual";
 import getDay from "date-fns/getDay";
 import format from "pg-format";
 import pool from "../db";
