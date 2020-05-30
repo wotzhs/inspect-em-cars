@@ -1,7 +1,7 @@
 import grpc from "grpc";
 import { loadSync } from "@grpc/proto-loader";
 import commonGrpcConfig from "../../grpc-common-config";
-import routes from "./routes";
+import Routes from "./routes";
 
 const packageDef = loadSync("location/location.proto", commonGrpcConfig);
 const { LocationService } = grpc.loadPackageDefinition(packageDef).location;
@@ -9,7 +9,7 @@ const { LocationService } = grpc.loadPackageDefinition(packageDef).location;
 const server = new grpc.Server();
 
 server.addService(LocationService.service, {
-	getLocations: routes.getLocations,
+	getLocations: Routes.getLocations,
 });
 
 const SERVER_IP = process.env.SERVER_IP || "0.0.0.0";
