@@ -7,7 +7,7 @@
     "transpile": "babel ./src --out-dir dist",
     "clean": "rimraf dist",
     "build": "npm-run-all clean transpile",
-    "prod": "node ./dist/bin/www",
+    "prod": "node ./dist/bin/www.js",
     "start": "NODE_ENV=production npm-run-all build prod"
   },
   "dependencies": {
